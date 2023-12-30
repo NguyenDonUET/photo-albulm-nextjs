@@ -1,23 +1,30 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { UploadResult } from '@/types'
-import { CldUploadButton } from 'next-cloudinary'
+import { CldUploadButton, CldUploadWidgetResults } from 'next-cloudinary'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 export default function UploadButton() {
   const router = useRouter()
 
+  const handleUpload = (results: CldUploadWidgetResults) => {
+    console.log(`🚀 ~ results:`, results.info)
+    setTimeout(() => {
+      router.refresh()
+      toast.success('Tải hình ảnh lên thành công!')
+    }, 1000)
+  }
   return (
     <Button asChild>
       <div className='flex items-center gap-2 '>
         <CldUploadButton
           uploadPreset='qhjicysu'
-          onUpload={(results: UploadResult) => {
-            console.log(`🚀 ~ results:`, results.info.public_id)
-            setTimeout(() => {
-              router.refresh()
-            }, 1000)
-          }}>
+          onError={(error) => {
+            console.log(error?.toString())
+            toast.error('Có lỗi, vui lòng thử lại sau.')
+          }}
+          onUpload={handleUpload}>
           <div className='flex items-center gap-2'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
