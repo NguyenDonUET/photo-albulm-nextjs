@@ -1,13 +1,20 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { CldUploadButton } from 'next-cloudinary'
+
+import { CldImage } from 'next-cloudinary'
+import { useState } from 'react'
 
 export default function Home() {
+  const [imageId, setImageId] = useState('i47tyfycpm576pi5cegs')
+
   return (
     <main className='min-h-screen '>
-      <CldUploadButton uploadPreset='qhjicysu' />
-
-      <Button>Click me</Button>
+      <CldImage
+        width='400'
+        height='300'
+        src={imageId}
+        sizes='100vw'
+        alt='Description of my image'
+      />
     </main>
   )
 }
