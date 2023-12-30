@@ -28,8 +28,8 @@ export default async function GalleryPage() {
                 key={item.public_id}
                 alt='image'
                 imageId={item.public_id}
-                width={'500'}
-                height={'300'}
+                fill
+                className='object-cover rounded-sm'
               />
             )
           })}
