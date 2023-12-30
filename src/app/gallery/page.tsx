@@ -4,13 +4,15 @@ import UploadButton from './UploadButton'
 
 type SearchResultType = {
   public_id: string
+  tags: string[]
 }
 
 export default async function GalleryPage() {
   const results = (await cloudinary.v2.search
     .expression('resource_type:image')
+    .with_field('tags')
     .sort_by('created_at', 'desc')
-    .max_results(10)
+    .max_results(1)
     .execute()) as { resources: SearchResultType[] }
 
   return (
@@ -23,9 +25,12 @@ export default async function GalleryPage() {
 
         <div className='grid grid-cols-4 gap-4'>
           {results.resources.map((item) => {
+            // console.log(`🚀 ~ item:`, item)
+            const isFavorite = item.tags.includes('favorite')
             return (
               <CloudinaryImage
                 key={item.public_id}
+                isFavorite={isFavorite}
                 alt='image'
                 imageId={item.public_id}
                 fill
