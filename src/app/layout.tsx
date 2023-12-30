@@ -1,8 +1,9 @@
+import Header from '@/components/Header'
+import SideMenu from '@/components/SideMenu'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
 import './globals.css'
-import SideMenu from '@/components/SideMenu'
-import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body className={inter.className}>
+        <Toaster />
         <Header />
         <div className='flex'>
           <SideMenu />
